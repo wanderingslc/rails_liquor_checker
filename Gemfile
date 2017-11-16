@@ -13,8 +13,12 @@ gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
+gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 5.0'
+gem 'devise'
+gem 'roo'
+gem 'smart_listing'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -43,6 +47,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'pry'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
