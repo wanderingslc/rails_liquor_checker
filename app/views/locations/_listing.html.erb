@@ -1,0 +1,23 @@
+<% unless smart_listing.empty? %>
+  <table>
+    <thead>
+      <th>Location Name</th>
+      <th>Licenses</th>
+    </thead>
+    <tbody>
+      <% smart_listing.collection.each do |location| %>
+        <tr>
+          <td>
+            <%= location.name.titleize %>
+          </td>
+        <td>
+          <%= location.liquor %>
+        </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+    <%= smart_listing.paginate %>
+    <% else %>
+    <p class="warning">No Records</p>
+<% end %>
