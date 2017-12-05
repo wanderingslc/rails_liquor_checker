@@ -3,6 +3,13 @@ class Location < ApplicationRecord
   has_many :taggings
   has_many :tags, through: :taggings
 
+  geocoded_by :street_address
+  reverse_geocoded_by :latitude, :longitude
+
+  def street_address
+    "#{address} #{city} #{zip}"
+  end
+
   def self.import(file)
     spreadsheet = Roo::Spreadsheet.open(file.path)
     header = spreadsheet.row(1)
@@ -12,6 +19,9 @@ class Location < ApplicationRecord
       location = Location.find_by(license: row["license"]) || new
 
       if row["dba"].nil?
+        next
+      end
+      if row['license'].nil?
         next
       end
 

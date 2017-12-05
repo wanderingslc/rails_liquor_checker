@@ -19,6 +19,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'devise'
 gem 'roo'
 gem 'smart_listing'
+gem 'geocoder'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
