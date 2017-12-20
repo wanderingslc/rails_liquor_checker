@@ -6,9 +6,16 @@ class Location < ApplicationRecord
   geocoded_by :street_address
   reverse_geocoded_by :latitude, :longitude
 
-  def street_address
-    "#{address} #{city} #{zip}"
+  def get_locations(pos)
+
+    Location.near([pos.lat, pos.lng], 1)
   end
+
+  def street_address
+    "#{address['street_address']} #{address['city']} #{address['zip']}"
+  end
+
+  scope :within_5, -> (lat, lng) {near([lat, lng], 5)}
 
   def self.import(file)
     spreadsheet = Roo::Spreadsheet.open(file.path)
@@ -26,26 +33,54 @@ class Location < ApplicationRecord
       end
 
       row.delete(nil)
-      types = []
-      types << "3.2" if row["license"].include? "BE"
-      types << "Wine" if row["license"].include? "RL"
-      if row["license"].include? "RE"
-        types << "3.2"
-        types << "Wine"
-        types << "Liquor"
+
+      if row['license'].include? "BC"
+        location.beer = true
+        location.license_type = "Banquet Catering"
       end
-      if row["license"].include? "CL"
-        types << "3.2"
-        types << "Wine"
-        types << "Liquor"
+      if row['license'].include? 'BE'
+        location.beer = true
+        location.license_type = "On Premise Beer"
       end
-      location.liquor = types.uniq
+
+      if row['license'].include? 'CL'
+        location.liquor = true
+        location.license_type = "Private Club"
+      end
+
+      if row['license'].include? 'PS'
+        location.beer = true
+        location.license_type = 'Public Service Permit'
+      end
+
+      if row['license'].include? 'RB'
+        location.beer = true
+        location.license_type = 'Restaurant - Beer Only'
+      end
+
+      if row['license'].include? 'RL'
+        location.wine = true
+        location.license_type = 'Restaurant - Limited Service'
+      end
+
+      if row['license'].include? 'RE'
+        location.liquor = true
+        location.license_type = 'Restaurant - Full Service'
+      end
+
+      if row['license'].include? 'TV'
+        location.beer = true
+        location.license_type = 'Tavern'
+      end
+
       location.license = row["license"]
       location.name = row["dba"]
-      location.address = row["address"]
-      location.city = row['city']
-      location.state = row['state']
-      location.zip = row['zip']
+      location.address = {
+        street_address: row['address'],
+        city: row['city'],
+        state: row['state'],
+        zip: row['zip']
+      }
       location.phone = row['phone']
       location.save!
     end

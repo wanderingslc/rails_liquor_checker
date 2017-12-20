@@ -2,7 +2,16 @@ class LocationsController < ApplicationController
   before_action :authenticate_admin!, only: [:new]
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
+
+
   def index
+
+  end
+
+  def get_locations
+
+    locations = Location.near([params[:lat], params[:lng]], 5)
+    render json: locations.to_json
   end
 
   def new
@@ -23,7 +32,7 @@ class LocationsController < ApplicationController
   private
 
   def location_params
-    params.require(:location).permit(:name, :address, :city, :state, :zip, :phone, :license, :latitude, :longitude )
+    params.require(:location).permit(:name, :address, :city, :state, :zip, :phone, :license, :latitude, :longitude, :pos )
   end
 
 end

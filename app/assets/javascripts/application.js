@@ -15,4 +15,5 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require smart_listing
+//= require lodash
 //= require_tree .

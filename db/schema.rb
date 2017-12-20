@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171117025713) do
+ActiveRecord::Schema.define(version: 20171216213114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,17 +34,22 @@ ActiveRecord::Schema.define(version: 20171117025713) do
 
   create_table "locations", force: :cascade do |t|
     t.string "license"
+    t.string "license_type"
     t.string "name"
-    t.string "address"
-    t.string "city"
-    t.string "state"
-    t.string "zip"
+    t.jsonb "address"
     t.string "phone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "liquor", default: [], array: true
     t.float "latitude"
     t.float "longitude"
+    t.boolean "beer", default: false
+    t.boolean "wine", default: false
+    t.boolean "liquor", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["beer"], name: "index_locations_on_beer"
+    t.index ["latitude"], name: "index_locations_on_latitude"
+    t.index ["liquor"], name: "index_locations_on_liquor"
+    t.index ["longitude"], name: "index_locations_on_longitude"
+    t.index ["wine"], name: "index_locations_on_wine"
   end
 
   create_table "taggings", force: :cascade do |t|

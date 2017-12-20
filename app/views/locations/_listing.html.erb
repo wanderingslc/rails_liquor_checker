@@ -20,10 +20,8 @@
   <table class="table table-striped">
     <thead>
       <th>Name</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>Zip</th>
-      <th>Licenses</th>
+
+      <th>License</th>
     </thead>
     <tbody>
       <% smart_listing.collection.each do |location| %>
@@ -31,13 +29,9 @@
           <td>
             <%= location.name.titleize %>
           </td>
-          <td>
-            <%= location.address %>
-          </td>
-          <td><%= location.city %></td>
-          <td><%= location.zip %></td>
+
         <td>
-          <%= location.liquor %>
+          <%= location.license_type %>
         </td>
 
         </tr>
