@@ -10,7 +10,18 @@ class LocationsController < ApplicationController
 
   def get_locations
 
-    locations = Location.near([params[:lat], params[:lng]], 5)
+    # locations = Location.near([params[:lat], params[:lng]], 5)
+    locations = Location.all
+    render json: locations.to_json
+  end
+
+  def get_all_beer
+    beer = Location.where(beer: true)
+    render json: beer.to_json
+  end
+
+  def get_all_locations
+    locations = Location.all
     render json: locations.to_json
   end
 

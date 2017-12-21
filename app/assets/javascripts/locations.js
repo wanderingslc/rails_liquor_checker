@@ -65,10 +65,9 @@ function getLocations(pos) {
     data: pos,
     dataType: "json",
     success: function(result) {
-      locations = result;
-      beer = _.filter(locations, 'beer');
-      wine = _.filter(locations, 'wine');
-      liquor = _.filter(locations, 'liquor');
+      beer = _.filter(result, 'beer');
+      wine = _.filter(result, 'wine');
+      liquor = _.filter(result, 'liquor');
         _.forEach(beer, function(value) {
             createMarker({lat: value.latitude, lng: value.longitude}, map, value.name, 'B');
         });
@@ -81,6 +80,46 @@ function getLocations(pos) {
 
     }
   })
+}
+
+function getBeer() {
+    $.ajax({
+        method: 'GET',
+        url: 'locations/get_beer.rb',
+        dataType: 'json',
+        success: function(result) {
+            beer = result;
+            _.forEach(beer, function(value) {
+            createMarker({lat: value.latitude, lng: value.longitude}, map, value.name, 'B');
+        });
+        }
+    });
+}
+
+function getAllLocations() {
+    $.ajax({
+        beforeSend: function(xhrObj){
+                xhrObj.setRequestHeader("Content-Type","application/json");
+                xhrObj.setRequestHeader("Accept","application/json");
+        },
+    method: 'GET',
+    url: 'locations/get_all_locations.rb',
+    success: function(result) {
+        locations = result;
+        beer = _.filter(locations, 'beer');
+      wine = _.filter(locations, 'wine');
+      liquor = _.filter(locations, 'liquor');
+        _.forEach(beer, function(value) {
+            createMarker({lat: value.latitude, lng: value.longitude}, map, value.name, 'B');
+        });
+        _.forEach(wine, function(value) {
+            createMarker({lat: value.latitude, lng: value.longitude}, map, value.name, 'W');
+        });
+        _.forEach(liquor, function(value) {
+            createMarker({lat: value.latitude, lng: value.longitude}, map, value.name, 'L');
+        });
+    }
+    })
 }
 function createMarker(coords, map, title, label) {
   marker = new google.maps.Marker({

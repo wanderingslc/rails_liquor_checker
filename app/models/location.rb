@@ -7,8 +7,15 @@ class Location < ApplicationRecord
   reverse_geocoded_by :latitude, :longitude
 
   def get_locations(pos)
+    # Location.near([pos.lat, pos.lng], 10)
+  end
 
-    Location.near([pos.lat, pos.lng], 1)
+  def get_all_locations
+    Location.all
+  end
+
+  def get_all_beer
+    Location.where(beer: true)
   end
 
   def street_address

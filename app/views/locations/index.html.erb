@@ -1,29 +1,39 @@
 <h1>Add javascript showing locations. </h1>
 <h4>Find ways to filter, get icons to represent</h4>
 
-<div id="map-container">
-  <div id="map-canvas">
-
+<div class="col-md-6" id="map"></div>
+<div class="col-md-6">
+  <div class="row">
+    <div class="col-sm-2">
+      <h3 class="filter-h3">Beer</h3>
+    </div>
+    <div class="col-sm-8">
+      <button type="button" class="btn btn-lg btn-toggle active" data-toggle="button" aria-pressed="true" autocomplete="off">
+        <div class="handle"></div>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <h3 class="filter-h3">Wine</h3>
+    </div>
+    <div class="col-sm-8">
+      <button type="button" class="btn btn-lg btn-toggle active" data-toggle="button" aria-pressed="true" autocomplete="off">
+        <div class="handle"></div>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <h3 class="filter-h3">Liquor</h3>
+    </div>
+    <div class="col-sm-8">
+      <button type="button" class="btn btn-lg btn-toggle active" data-toggle="button" aria-pressed="true" autocomplete="off">
+        <div class="handle"></div>
+      </button>
+    </div>
   </div>
 </div>
-    <div class="col-md-6" id="map"></div>
-    <!-- <script>
-      function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-    </script> -->
-
-<script>
-
-</script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCczr19bUvevRjoBOSzoW5THnrcAL8m6dA&callback=initMap"
         type="text/javascript"></script>
