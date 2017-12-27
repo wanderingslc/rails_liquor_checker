@@ -39,7 +39,7 @@ function initMap() {
             infoWindow.setContent('Look at you');
             infoWindow.open(map);
             map.setCenter(pos);
-            getLocations(pos);
+            getAllLocations(pos);
 
         }, function() {
             handleLocationError(true, infoWindow, map.getCenter());

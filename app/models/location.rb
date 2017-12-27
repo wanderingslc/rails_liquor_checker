@@ -14,9 +14,13 @@ class Location < ApplicationRecord
     Location.all
   end
 
-  def get_all_beer
-    Location.where(beer: true)
-  end
+  scope :all_with_geo, -> {Location.all.where.not(latitude: nil)}
+
+  scope :get_all_beer, -> {Location.where(beer: true).where.not(latitude: nil)}
+
+  scope :get_all_wine, -> {Location.where(wine: true).where.not(latitude: nil)}
+
+  scope :get_all_liquor, -> {Location.where(liquor: true).where.not(latitude: nil)}
 
   def street_address
     "#{address['street_address']} #{address['city']} #{address['zip']}"

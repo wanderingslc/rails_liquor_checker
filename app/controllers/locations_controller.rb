@@ -16,12 +16,22 @@ class LocationsController < ApplicationController
   end
 
   def get_all_beer
-    beer = Location.where(beer: true)
+    beer = Location.get_all_beer
     render json: beer.to_json
   end
 
+  def get_all_wine
+    wine = Location.get_all_wine
+    render json: wine.to_json
+  end
+
+  def get_all_liquor
+    liquor = Location.get_all_liquor
+    render json: liquor.to_json
+  end
+
   def get_all_locations
-    locations = Location.all
+    locations = Location.all_with_geo
     render json: locations.to_json
   end
 
